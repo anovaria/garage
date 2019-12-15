@@ -1,5 +1,6 @@
 package com.mycompany.garage;
-
+import java.util.Arrays;
+import org.apache.commons.lang.ArrayUtils;
 /**
  *
  * @author alex
@@ -14,13 +15,24 @@ public class Garage {
     public static void main(String[] args) {
         Garage G = new Garage();
     }
-
+    public void rimuoviA(Auto A){
+        elencoAuto=(Auto[]) ArrayUtils.remove(elencoAuto, 0);
+        System.out.println("Rimosso: "+A.toString());
+    }
+    public void rimuoviM(Moto M){
+        elencoMoto=(Moto[]) ArrayUtils.remove(elencoMoto, 0);
+        System.out.println("Rimosso: "+M.toString());
+    }
+    public void rimuoviF(Furgone F){
+        
+    }
+    
     public void inserisci(Auto A) {
         int posto=0;
         if (controlla(posto)) {
             elencoAuto[posto] = A;
             
-            System.out.println(A.toString());
+            System.out.println("Inserito: "+A.toString());
         } else {
 
             System.out.println("posi pieni");
@@ -31,7 +43,7 @@ public class Garage {
         int posto=0;
         if (controlla(posto)) {
             elencoMoto[posto] = M;
-            System.out.println(M.toString());
+            System.out.println("Inserito: "+M.toString());
         } else {
 
             System.out.println("posi pieni");
@@ -42,7 +54,7 @@ public class Garage {
         int posto=0;
         if (controlla(posto)) {
             elencoFurgoni[posto] = F;
-            System.out.println(F.toString());
+            System.out.println("Inserito: "+F.toString());
         } else {
             System.out.println("posi pieni");
         }
@@ -70,7 +82,7 @@ public class Garage {
                 cont = cont + 1;
             }
         }
-        System.out.println(Integer.toString(cont));
+        //System.out.println(Integer.toString(cont));
         if (cont < maxPosti) {
             posto = cont;
             return true;
@@ -101,8 +113,10 @@ public class Garage {
         inserisci(M);
         Furgone F = new Furgone(2,300, "Ducato", 1995,2500);
         inserisci(F);
+        rimuoviA(elencoAuto[0]);
+        rimuoviM(elencoMoto[0]);
+        rimuoviF(elencoFurgoni[0]);
     }
-
 }
 
 class Veicolo {
