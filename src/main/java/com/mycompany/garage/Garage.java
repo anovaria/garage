@@ -141,10 +141,11 @@ public class Garage {
             elencoMoto[i] = new Moto(i, 0, "", 0, 0);
         }
 
-        //inserisco veicoli
+        //inserisco veicoli 
+        //throw new IllegalArgumentException("errore");
         Auto A = new Auto(3, 4, "benz", "fiat", 2000, 1200);
         inserisci(A);
-        Moto M = new Moto(2, 1, "aprilia", 2000, 600);
+        Moto M = new Moto(2, 4, "aprilia", 2000, 600);
         inserisci(M);
         Furgone F = new Furgone(2, 300, "Ducato", 1995, 2500);
         inserisci(F);
@@ -167,6 +168,13 @@ class Veicolo {
         this.anno = anno;
         this.cilindrata = cilindrata;
     }
+
+    @Override
+    public String toString() {
+        return String.format(" marca %s, anno %s, cil. %s ", marca, anno, cilindrata);
+    }
+    
+    
 }
 
 class Auto extends Veicolo {
@@ -182,8 +190,9 @@ class Auto extends Veicolo {
 
     @Override
     public String toString() {
-        return "posto: " + posto + ") Auto: " + marca + ", porte=" + porte + ", alim=" + alim + ", anno=" + anno + ", "
-                + "cil.=" + cilindrata;
+        //return "posto: " + posto + ") Auto: " + marca + ", porte=" + porte + ", alim=" + alim + ", anno=" + anno + ", "
+          //      + "cil.=" + cilindrata;
+        return super.toString() + String.format(" porte %s, alim. %s ", porte, alim);
     }
 
 }
@@ -199,7 +208,8 @@ class Moto extends Veicolo {
 
     @Override
     public String toString() {
-        return "posto: " + posto + ") Moto " + marca + " cil.=" + cilindrata + " anno=" + anno + " tempi=" + tempi + '}';
+        return super.toString() + String.format(" tempi %s ", tempi);
+        //return "posto: " + posto + ") Moto " + marca + " cil.=" + cilindrata + " anno=" + anno + " tempi=" + tempi + '}';
     }
 
 }
@@ -215,6 +225,7 @@ class Furgone extends Veicolo {
 
     @Override
     public String toString() {
+        
         return "posto: " + posto + ") Furgone" + " marca=" + marca + " cpacita=" + cpacita + " anno=" + anno
                 + " cilind.=" + cilindrata;
     }
