@@ -11,6 +11,10 @@ public class Garage {
     private static Moto elencoMoto[];
     private final int maxPosti = 4;
 
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         Garage G = new Garage();
     }
