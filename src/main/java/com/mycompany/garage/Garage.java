@@ -1,5 +1,8 @@
 package com.mycompany.garage;
 
+import com.sun.java_cup.internal.runtime.Scanner;
+import com.sun.java_cup.internal.runtime.Symbol;
+
 /**
  *
  * @author alex
@@ -17,11 +20,28 @@ public class Garage {
      */
     public static void main(String[] args) {
         Garage G = new Garage();
+        
+        java.util.Scanner sc = new java.util.Scanner(System.in);
+        System.out.println("dimmi alimentazione?");
+        Auto.Alimentazione alimentazione=null;
+        boolean invalid;
+        do{
+            invalid=false;
+            try{
+                alimentazione=Auto.Alimentazione.valueOf(sc.nextLine().toUpperCase());
+            }catch(IllegalArgumentException ex){
+                System.out.println("Alim non valida riprova");
+                invalid=true;
+            }
+        
+    } while(invalid);
+        
+        
     }
 
     public void rimuoviA(Auto A) {
 
-        elencoAuto[A.posto] = new Auto(A.posto, 0, "", "", 0, 0);
+        elencoAuto[A.posto] = new Auto(A.posto, 0, Auto.Alimentazione.BENZINA, "", 0, 0);
         System.out.println("Rimosso: " + A.toString());
         stampaSituazione();
     }
@@ -130,7 +150,7 @@ public class Garage {
         // preparo gli array
         elencoAuto = new Auto[maxPosti];
         for (int i = 0; i < elencoAuto.length; i++) {
-            elencoAuto[i] = new Auto(i, 0, "", "", 0, 0);
+            elencoAuto[i] = new Auto(i, 0, Auto.Alimentazione.BENZINA, "", 0, 0);
         }
         elencoFurgoni = new Furgone[maxPosti];
         for (int i = 0; i < elencoFurgoni.length; i++) {
@@ -143,7 +163,7 @@ public class Garage {
 
         //inserisco veicoli 
         //throw new IllegalArgumentException("errore");
-        Auto A = new Auto(3, 4, "benz", "fiat", 2000, 1200);
+        Auto A = new Auto(3, 4, Auto.Alimentazione.BENZINA, "fiat", 2000, 1200);
         inserisci(A);
         Moto M = new Moto(2, 4, "aprilia", 2000, 600);
         inserisci(M);
@@ -173,16 +193,22 @@ class Veicolo {
     public String toString() {
         return String.format(" marca %s, anno %s, cil. %s ", marca, anno, cilindrata);
     }
-    
-    
+
 }
 
 class Auto extends Veicolo {
 
+    public static enum Alimentazione {
+        BENZINA, DIESEL
+    }
+    public static enum Porte {
+        
+    }
     public int porte;
-    public String alim;
+    //public String alim;
+    Alimentazione alim;
 
-    public Auto(int posto, int porte, String alim, String marca, int anno, int cilindrata) {
+    public Auto(int posto, int porte, Alimentazione alim, String marca, int anno, int cilindrata) {
         super(posto, marca, anno, cilindrata);
         this.porte = porte;
         this.alim = alim;
@@ -191,7 +217,7 @@ class Auto extends Veicolo {
     @Override
     public String toString() {
         //return "posto: " + posto + ") Auto: " + marca + ", porte=" + porte + ", alim=" + alim + ", anno=" + anno + ", "
-          //      + "cil.=" + cilindrata;
+        //      + "cil.=" + cilindrata;
         return super.toString() + String.format(" porte %s, alim. %s ", porte, alim);
     }
 
@@ -225,7 +251,7 @@ class Furgone extends Veicolo {
 
     @Override
     public String toString() {
-        
+
         return "posto: " + posto + ") Furgone" + " marca=" + marca + " cpacita=" + cpacita + " anno=" + anno
                 + " cilind.=" + cilindrata;
     }
